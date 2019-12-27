@@ -183,14 +183,13 @@ def generate_subject(result_array):
 
 
 def slice_str(shape_list):
-    slice_list = str(shape_list).replace('[', '').replace(']', '').replace(', None', '').replace('(', '').replace(')',
-                                                                                                                  '').strip().split(
-        ", slice")
-    slice_result_list = []
-    for line in slice_list:
-        line = line.replace('slice', '').replace(',', ':')
-        slice_result_list.append(line)
-    return slice_result_list.__str__().replace('\'', '').replace(' ', '')
+    result_list = []
+    for line in shape_list:
+        if str(line).find('slice')>-1:
+            line = str(line).replace(', None', '').replace(',', ':')
+        line = str(line).replace('[', '').replace(']', '').replace('(', '').replace(')', "").replace('slice', '').strip()
+        result_list.append(line)
+    return result_list.__str__().replace("'", '')
 
 
 # 提示形状
